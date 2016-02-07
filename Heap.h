@@ -3,8 +3,9 @@
 #define HEAP_H_
 
 #include <iostream>
-#include "freqCounter.h"
+#include "Node.h"
 using namespace std;
+
 
 class Heap{
 
@@ -15,9 +16,10 @@ private:
 public:
 	Heap();
 	~Heap();
-	//void buildArray(sting filename);
-	void minHeapify(pair<char,int>* arrayOfNodes, int size);
+	void insert(pair<char,int> Node);
+	void buildHeap(pair<char,int>* arrayOfNodes, int size);
 	pair<char,int> deleteMin();
+	int getUniqueChars() {return occupancy;}
 	// void print();
 };
 
