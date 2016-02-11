@@ -10,16 +10,21 @@ using namespace std;
 class Heap{
 
 private:
-	int occupancy;
-	pair<char,int>* myHeap;
+	int size;
+	Node** myHeap;
 
 public:
+  //Constructor and Destructor
 	Heap();
 	~Heap();
-	void insert(pair<char,int> Node);
-	void buildHeap(pair<char,int>* arrayOfNodes, int size);
-	pair<char,int> deleteMin();
-	int getUniqueChars() {return occupancy;}
+  //Modifiers
+  void buildHeap();
+	void insert(Node * node);
+
+  void percolateDown(int index);
+	Node* deleteMin();
+
+	int getUniqueChars() { return this->size; }
 	// void print();
 };
 
