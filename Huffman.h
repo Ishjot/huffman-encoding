@@ -15,13 +15,13 @@ private:
 public:
 	Huffman(string filename);
 	~Huffman();
-	string Encode(string input);
+	string encode(string input);
 	string decode(string input);
 
 	string getFileContents (string filename);
 	int* countFreq(string filename);
 
-	//void print(); // for testing?
+	void print();
 
 };
 

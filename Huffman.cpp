@@ -41,9 +41,3 @@ int* Huffman::countFreq(string filename){
 	return arrayOfCounts;
 
 }
-
-void buildHeap(pair<chair, int>* arrayOfNodes, int size)
-{
-  for(int i = size/2; i > 0; i--)
-    percolateDown( i );
-}

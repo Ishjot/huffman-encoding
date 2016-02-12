@@ -3,13 +3,14 @@
 #define HEAP_H_
 
 #include <iostream>
+#include <vector>
 #include "Node.h"
 using namespace std;
 
 class Heap{
 
 private:
-	Node** myHeap;
+	vector<Node *> heap;
 
 public:
   //Constructor and Destructor
