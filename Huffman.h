@@ -2,17 +2,19 @@
 #define HUFFMAN_H_
 
 #include <iostream>
+#include "Node.h"
 #include "Heap.h"
 
 using namespace std;
 
 class Huffman {
 private:
-	//
+	Node * encodingTree;
+  int * characterFreq;
 
 public:
 	Huffman(string filename);
-	//~Huffman();
+	~Huffman();
 	string Encode(string input);
 	string decode(string input);
 

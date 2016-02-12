@@ -5,23 +5,27 @@
 
 using namespace std;
 
+Huffman::Huffman(string filename){
+  
+  characterFreq = countFreq(filename);
+  buildEncodingMap();
 
-
-/*Huffman::Huffman(string filename){
-	
-}*/
+}
 
 string Huffman::getFileContents(string filename) {
+
 	//read the input file into a stream object
 	ifstream myFile(filename.c_str());
 	if (!myFile){
 		cerr << "Could not open file " << filename << ". Exit now!" << endl;
 		exit(1); 
 	}
-	return string((istreambuf_iterator<char>(myFile)),istreambuf_iterator<char>());
+  return string((istreambuf_iterator<char>(myFile)),istreambuf_iterator<char>());
+
 }
 
 int* Huffman::countFreq(string filename){
+
 	string getContent = getFileContents(filename);
 	int* arrayOfCounts = new int[27];
 	for (int i = 0; i < 27; i++){
@@ -35,6 +39,7 @@ int* Huffman::countFreq(string filename){
 		arrayOfCounts[index]++;
 	}
 	return arrayOfCounts;
+
 }
 
 void buildHeap(pair<chair, int>* arrayOfNodes, int size)

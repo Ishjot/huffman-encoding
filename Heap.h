@@ -6,11 +6,9 @@
 #include "Node.h"
 using namespace std;
 
-
 class Heap{
 
 private:
-	int size;
 	Node** myHeap;
 
 public:
