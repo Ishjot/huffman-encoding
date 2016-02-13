@@ -1,15 +1,16 @@
 #include "Heap.h"
+#include "Node.h"
 
 Heap::Heap()
 {
   heap = new vector<Node*>;
-  heap.push_back(NULL);
+  heap->push_back(NULL);
 }
 
 Heap::~Heap()
 {
-  for(auto it = heap.begin() + 1; it != heap.end(); ++it) // do not start at beginning because
-    delete *it;                                           // first element in heap is NULL
+  for(unsigned int i = 1; 1 < heap->size(); ++i) // do not start at beginning because
+    delete heap->at(i);                           // first element in heap is NULL
 }
 
 void Heap::buildHeap(int * characterFreq)
@@ -30,12 +31,31 @@ void Heap::buildHeap(int * characterFreq)
     if(characterFreq[i] != 0)
     {
       entry = new Node(characterFreq[i], letters[i]);
-      heap.push_back( entry );
+      heap->push_back( entry );
     }
   }
 
-  for(int j = heap.size()/2; j >= 0; --j)
+  for(int j = (heap->size() - 1)/2; j > 0; --j)
     percolateDown( j );
+
+}
+
+void Heap::insert(Node * node)
+{
+  heap->push_back(node);
+  for(int j = (heap->size() - 1)/2; j > 0; --j)
+    percolateDown( j );
+} //Insert should actually be Percolating UP, because that's how
+  //to get the inserted Node to the right postition. I haven't
+  //implemented the Percolate UP method yet, however, but this
+  //*lazy* approach should still work
+
+void Heap::swap( int index1, int index2 )
+{
+
+  Node * temp = (*heap)[index1];
+  (*heap)[index1] = (*heap)[index2];
+  (*heap)[index2] = temp;
 
 }
 
@@ -44,23 +64,46 @@ void Heap::percolateDown(int index)
 
   while(true)
   {
-    int weight = heap[index]->getWeight();
-    int weightLeft = heap[index*2]->getWeight();
-    int weightRight = heap[index*2+1]->getWeight();
+    if(index > (heap->size() - 1)/2)
+      break;
+    int weight = (*heap)[index]->getWeight();
+    int weightLeft = (*heap)[index*2]->getWeight();
+    int weightRight = (*heap)[index*2+1]->getWeight();
     if(weight <= weightLeft && weight <= weightRight)
       break;
     else if(weight > weightLeft && weight <= weightRight)
-      //swap weight with weightLeft;
-      //change index to index * 2
+    {
+      swap( index, index*2 );
+      index = index * 2;
+    }
     else if(weight <= weightLeft && weight > weightRight)
-      //swap weight with weightRight;
-      //change index to index * 2 + 1
-    else if(weight > weightRight && weight > weightLeft)
-      //swap weight with greater of weightLeft and weightRight
-      //change index to the right value, index*2 or index*2 + 1
-    else
-      //swap with weightRight, this means weightLeft and weightRight are equal
+    {
+      swap( index, index*2 + 1);
+      index = index*2 + 1;
+    }
+    else // if (weight > weightRight && weight > weightLeft)
+    {
+      if(weightLeft < weightRight)
+      {
+        swap( index, index*2 );
+        index = index*2;
+      }
+      else
+      {
+        swap( index, index*2 + 1 );
+        index = index*2 + 1;
+      }
+    }
   }
   return;
+
+}
+
+Node * Heap::deleteMin()
+{
+
+  swap( 1, heap->size()-1 );
+  heap->pop_back();
+  percolateDown( 1 );  
 
 }

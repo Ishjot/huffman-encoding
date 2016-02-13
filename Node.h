@@ -13,8 +13,16 @@ class Node{
     Node * rightChild;
   public:
     //Constructors
-    Node() { weight = value = leftChild = rightChild = 0 }
-    Node(int weight, char value) : weight(weight), value(value) { }
+    Node() { weight = 0;
+             value = '\0';
+             leftChild = rightChild = NULL; }
+
+    Node(int weight, char value) {
+                                    this->weight = weight;
+                                    this->value = value;
+                                    this->leftChild = NULL;
+                                    this->rightChild = NULL;
+                                 }
 
     //Getters and Setters
     int getWeight() { return this->weight; }
@@ -24,13 +32,31 @@ class Node{
     void setValue( char value ) { this->value = value; }
 
     Node * getLeftChild() { return this->leftChild; }
-    void setLeftChild( Node * child ) { this->leftChild = child }
+    void setLeftChild( Node * child ) { this->leftChild = child; }
 
     Node * getRightChild() { return this->rightChild; }
-    void setRightChild( Node * child ) { this->rightChild = child }
+    void setRightChild( Node * child ) { this->rightChild = child; }
+
  
     //Destructor
-    ~Node();
+    ~Node() {
+
+            deleteNode( this );
+
+            }
+
+    //Helper function for the destructor
+    void deleteNode( Node * node ) {
+
+                                   if( leftChild != NULL )
+                                     deleteNode( node->leftChild );
+                                   if( rightChild != NULL )
+                                     deleteNode( node->rightChild );
+                                   
+                                   delete node;
+                                   
+                                   }
+
     //TODO: Add copy and assignment operator	
 };
 
