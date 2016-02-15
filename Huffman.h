@@ -10,7 +10,7 @@ using namespace std;
 class Huffman {
 private:
 	Node * encodingTree;
-  int * characterFreq;
+	int * characterFreq;
 
 public:
 	Huffman(string filename);
@@ -22,7 +22,7 @@ public:
 	int* countFreq(string filename);
 
 	void print();
-  void printCharacterFreq();
+	void printCharacterFreq();
 
 };
 

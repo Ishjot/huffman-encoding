@@ -57,7 +57,22 @@ class Node{
                                    
                                    }
 
-    //TODO: Add copy and assignment operator	
+    //copy constructor and assignment operator	
+    Node& operator=(const Node &n) {
+
+                                   if (&n == this){return *this;}
+                                   this->weight = n.weight;
+                                   this->value = n.value;
+                                   this->leftChild = n.leftChild;
+                                   this->rightChild = n.rightChild;
+                                   return (*this); 
+    }
+    Node(const Node &n){
+                                   this->weight = n.weight;
+                                   this->value = n.value;
+                                   this->leftChild = n.leftChild;
+                                   this->rightChild = n.rightChild; 
+    }
 };
 
 #endif

@@ -66,6 +66,8 @@ void Heap::percolateDown(int index)
   {
     if(index > (heap->size() - 1)/2)
       break;
+    if ((*heap)[index] == NULL || (*heap)[index*2] == NULL || (*heap)[index*2+1] == NULL)
+      break;
     int weight = (*heap)[index]->getWeight();
     int weightLeft = (*heap)[index*2]->getWeight();
     int weightRight = (*heap)[index*2+1]->getWeight();
@@ -101,9 +103,10 @@ void Heap::percolateDown(int index)
 
 Node * Heap::deleteMin()
 {
-
+  Node * min = (*heap)[1];
   swap( 1, heap->size()-1 );
   heap->pop_back();
   percolateDown( 1 );  
+  return min;
 
 }
