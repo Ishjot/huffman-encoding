@@ -64,9 +64,17 @@ void Heap::percolateDown(int index)
 
   while(true)
   {
+    int leftWeight = 0;
+    int weight = (*heap).at(index)->getWeight();
     if(index > (heap->size() - 1)/2)
       break;
-    int weight = (*heap)[index]->getWeight();
+    if((*heap).at(index*2 + 1))
+    {
+      leftWeight = (*heap)[index]->getWeight();
+      if(weight > leftWeight)
+        swap( index, index*2 );
+      break;
+    }
     int weightLeft = (*heap)[index*2]->getWeight();
     int weightRight = (*heap)[index*2+1]->getWeight();
     if(weight <= weightLeft && weight <= weightRight)
