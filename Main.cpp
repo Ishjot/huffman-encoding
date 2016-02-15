@@ -19,4 +19,6 @@ int main(int argc, char** argv)
   huff->print();
   cout << "Goodbye, World!" << endl;
 
+  return 0;
+
 }

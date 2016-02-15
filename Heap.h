@@ -10,26 +10,27 @@ using namespace std;
 class Heap{
 
 private:
-	vector<Node *> * heap;
+  Node** heap;
+  int occupancy;
 
 public:
   //Constructor and Destructor
-	Heap();
-	~Heap();
+  Heap();
+  ~Heap();
 
   //Getters
-  vector<Node *> * getHeap() { return this->heap; }
+  Node ** getHeap() { return this->heap; }
 
   //Modifiers
   void buildHeap( int * characterFreq );
-	void insert(Node * node);
+  void insert(Node * node);
   void swap(int index1, int index2);
 
   void percolateDown(int index);
-	Node* deleteMin();
+  Node* deleteMin();
 
-	int getUniqueChars() { return this->heap->size() - 1; }
-	// void print();
+  int getUniqueChars() { return occupancy; }
+  void print();
 };
 
 #endif

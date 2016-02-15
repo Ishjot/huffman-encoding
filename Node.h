@@ -3,6 +3,7 @@
 #define NODE_H_
 
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 class Node{
@@ -36,28 +37,51 @@ class Node{
 
     Node * getRightChild() { return this->rightChild; }
     void setRightChild( Node * child ) { this->rightChild = child; }
-
+    string ToString(){
+      ostringstream output;
+      output << this->getValue() << ": " << this->getWeight() << "\n";
+      if (this->getLeftChild()!= NULL)
+	output << "Left: " << this->getLeftChild()->ToString();
+      if (this->getRightChild() != NULL)
+	output << "Right: " << this->getRightChild()->ToString();
+      return output.str();
+    }
  
     //Destructor
-    ~Node() {
+    /* ~Node() {
 
             deleteNode( this );
-
+      
             }
+    
 
     //Helper function for the destructor
     void deleteNode( Node * node ) {
-
                                    if( leftChild != NULL )
                                      deleteNode( node->leftChild );
                                    if( rightChild != NULL )
                                      deleteNode( node->rightChild );
                                    
                                    delete node;
-                                   
+       
                                    }
+    */
+    //copy constructor and assignment operator	
+    Node& operator=(const Node &n) {
 
-    //TODO: Add copy and assignment operator	
+                                   if (&n == this){return *this;}
+                                   this->weight = n.weight;
+                                   this->value = n.value;
+                                   this->leftChild = n.leftChild;
+                                   this->rightChild = n.rightChild;
+                                   return (*this); 
+    }
+    Node(const Node &n){
+                                   this->weight = n.weight;
+                                   this->value = n.value;
+                                   this->leftChild = n.leftChild;
+                                   this->rightChild = n.rightChild; 
+    }
 };
 
 #endif

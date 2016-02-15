@@ -1,16 +1,25 @@
 #include "Heap.h"
 #include "Node.h"
 
+#include <iostream>
+#include <sstream>
+
 Heap::Heap()
 {
-  heap = new vector<Node*>;
-  heap->push_back(NULL);
+  heap = new Node*[27];
+  for (int i = 0; i < 27; ++i){
+    heap[i] = NULL;
+  }
+  occupancy = 0;
 }
 
 Heap::~Heap()
 {
-  for(unsigned int i = 1; 1 < heap->size(); ++i) // do not start at beginning because
-    delete heap->at(i);                           // first element in heap is NULL
+  /*
+  for(int i = 1; i<occupancy; ++i) // do not start at beginning because
+    delete heap[i];                            // first element in heap is NULL
+  */
+  delete [] this->heap;
 }
 
 void Heap::buildHeap(int * characterFreq)
@@ -31,19 +40,24 @@ void Heap::buildHeap(int * characterFreq)
     if(characterFreq[i] != 0)
     {
       entry = new Node(characterFreq[i], letters[i]);
-      heap->push_back( entry );
+      insert(entry);
     }
   }
 
-  for(int j = (heap->size() - 1)/2; j > 0; --j)
+  for(int j = occupancy/2; j > 0; --j)
     percolateDown( j );
 
 }
 
 void Heap::insert(Node * node)
 {
-  heap->push_back(node);
-  for(int j = (heap->size() - 1)/2; j > 0; --j)
+  if (occupancy >= 27){
+    cout<< "Error: Not Enough Space!\n";
+    return;
+  }
+  occupancy++;
+  heap[occupancy] = node;
+  for(int j = occupancy/2; j > 0; --j)
     percolateDown( j );
 } //Insert should actually be Percolating UP, because that's how
   //to get the inserted Node to the right postition. I haven't
@@ -53,9 +67,9 @@ void Heap::insert(Node * node)
 void Heap::swap( int index1, int index2 )
 {
 
-  Node * temp = (*heap)[index1];
-  (*heap)[index1] = (*heap)[index2];
-  (*heap)[index2] = temp;
+  Node * temp = heap[index1];
+  heap[index1] = heap[index2];
+  heap[index2] = temp;
 
 }
 
@@ -64,19 +78,13 @@ void Heap::percolateDown(int index)
 
   while(true)
   {
-    int leftWeight = 0;
-    int weight = (*heap).at(index)->getWeight();
-    if(index > (heap->size() - 1)/2)
+    if(index > (occupancy/2))
       break;
-    if((*heap).at(index*2 + 1))
-    {
-      leftWeight = (*heap)[index]->getWeight();
-      if(weight > leftWeight)
-        swap( index, index*2 );
+    if (heap[index] == NULL || heap[index*2] == NULL || heap[index*2+1] == NULL)
       break;
-    }
-    int weightLeft = (*heap)[index*2]->getWeight();
-    int weightRight = (*heap)[index*2+1]->getWeight();
+    int weight =  heap[index]->getWeight();
+    int weightLeft = heap[index*2]->getWeight();
+    int weightRight = heap[index*2+1]->getWeight();
     if(weight <= weightLeft && weight <= weightRight)
       break;
     else if(weight > weightLeft && weight <= weightRight)
@@ -104,14 +112,25 @@ void Heap::percolateDown(int index)
     }
   }
   return;
-
 }
 
 Node * Heap::deleteMin()
 {
-
-  swap( 1, heap->size()-1 );
-  heap->pop_back();
+  Node * min = heap[1];
+  swap( 1, occupancy );
+  heap[occupancy] = NULL;
+  occupancy--;
   percolateDown( 1 );  
+  return min;
 
+}
+
+void Heap::print(){
+  ostringstream output;
+  for (int i = 1; i<=occupancy; i++)
+    {
+      output << heap[i]->ToString();
+    }
+  output << "\n";
+  cout << output.str();
 }
