@@ -34,15 +34,17 @@ Node * Huffman::buildEncodingTree()
   Node * two;
   Node * three;
 
-  while(heap->getHeap()->size() > 2)
+  while(heap->getUniqueChars() > 2)
   {
     one = heap->deleteMin();
     two = heap->deleteMin();
     three = merge(one, two);
     heap->insert(three);
   }
+  heap->print();
 
-  return heap->getHeap()->at(1);
+  //Node** myHeap = heap->getHeap();
+  return heap->getHeap()[1];
 
 }
 
@@ -67,17 +69,13 @@ int* Huffman::countFreq(string filename)
   for (int i = 0; i < 27; i++){
     arrayOfCounts[i] = 0;
   }
-  for (int i = 0; i< getContent.length(); i++){
+  for (unsigned int i = 0; i< getContent.length(); i++){
     int index = (int) getContent[i] - (int) ('a');
     if (getContent[i] == ' '){
       index = 26;
     }
     arrayOfCounts[index]++;
   }
-  for (int i = 0; i<27; i++){
-    cout << arrayOfCounts[i]<< " ";
-  }
-  
   return arrayOfCounts;
 
 }

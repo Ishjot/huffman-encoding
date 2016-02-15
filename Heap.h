@@ -10,7 +10,8 @@ using namespace std;
 class Heap{
 
 private:
-  vector<Node *> * heap;
+  Node** heap;
+  int occupancy;
 
 public:
   //Constructor and Destructor
@@ -18,7 +19,7 @@ public:
   ~Heap();
 
   //Getters
-  vector<Node *> * getHeap() { return this->heap; }
+  Node ** getHeap() { return this->heap; }
 
   //Modifiers
   void buildHeap( int * characterFreq );
@@ -28,8 +29,8 @@ public:
   void percolateDown(int index);
   Node* deleteMin();
 
-  int getUniqueChars() { return this->heap->size() - 1; }
-  // void print();
+  int getUniqueChars() { return occupancy; }
+  void print();
 };
 
 #endif
