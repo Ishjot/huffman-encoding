@@ -37,15 +37,21 @@ class Node{
 
     Node * getRightChild() { return this->rightChild; }
     void setRightChild( Node * child ) { this->rightChild = child; }
-    string ToString(){
-      ostringstream output;
-      output << this->getValue() << ": " << this->getWeight() << "\n";
-      if (this->getLeftChild()!= NULL)
-	output << "Left: " << this->getLeftChild()->ToString();
-      if (this->getRightChild() != NULL)
-	output << "Right: " << this->getRightChild()->ToString();
-      return output.str();
+    void print(Node* root){
+      cout << root->getValue() << ":" << root->getWeight()<< "\n";
+      if (root->getLeftChild()!= NULL)
+	{
+		cout << "Here is the left subtree:" << endl;
+		print(root->getLeftChild());
+	}
+      if (root->getRightChild() != NULL)
+	{	
+		cout << "Here is the right subtree:" << endl;
+		print(root->getRightChild());
+      	}
+	return;
     }
+    void print() {print(this);}
  
     //Destructor
     /* ~Node() {

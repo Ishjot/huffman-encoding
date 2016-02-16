@@ -1,0 +1,1 @@
+this is an encoding example the easiest way to test its correctness is to write a correct program that can decode it once the size of the input goes up it is hard to calculate the encoding manually
