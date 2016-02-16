@@ -6,7 +6,7 @@ CXXFLAGS = -g -std=c++11 -Wall -Wextra -Wno-unused-parameter -Wno-unused-private
 BINARIES = Heap Huffman
 
 all: Main.o Heap.o Huffman.o
-	${CXX} -Wall -g Heap.o Huffman.o Main.o -o prog2
+	${CXX} ${CXXFLAGS} Heap.o Huffman.o Main.o -o prog2
 
 Main.o: Main.cpp
 	${CXX} -Wall -g -c Main.cpp

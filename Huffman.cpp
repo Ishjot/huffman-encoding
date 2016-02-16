@@ -43,9 +43,7 @@ Node * Huffman::buildEncodingTree()
     three = merge(one, two);
     heap->insert(three);
   }
-  heap->print();
 
-  //Node** myHeap = heap->getHeap();
   return heap->getHeap()[1];
 
 }
@@ -68,14 +66,13 @@ void Huffman::encode(Node * root)
       newStack.pop();
     }
 
-    cout << root->getValue() << ":";
+    
     for(int i = size - 1; i >= 0; --i)
     {
-      cout << encoding[i];
+    
       code += boost::lexical_cast<string>(encoding[i]);
     }
-    cout << endl;
-    map.insert(root->getValue(), code);
+    myMap.insert( pair<char, string>(root->getValue(), code) );
     myStack.pop();
     return;
   }
@@ -122,10 +119,17 @@ void Huffman::decode(string filename){
 
 void Huffman::printEncoded( string filename )
 {
+  unsigned int i = 0;
   string file = getFileContents( filename );
   while(true)
   {
-    
+    if(i < file.length())
+    {
+      cout << myMap.at(file[i]);
+      i++;
+    }
+    else
+      break;
   }
 }
 

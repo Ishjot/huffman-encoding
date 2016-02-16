@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <stack>
-#include <unordered_map>
+#include <map>
 #include "Node.h"
 #include "Heap.h"
 
@@ -15,7 +15,7 @@ private:
 	Node * encodingTree;
 	int * characterFreq;
 	stack<int> myStack; //for encoding
-	unordered_map<char,string> map;
+	map<char,string> myMap;
 
 public:
 	Huffman(string filename);
@@ -24,7 +24,7 @@ public:
 	void decode(string filename);
 	void encode(Node* root);
 	void encode() { encode(this->encodingTree); }
-	void printEncoded();
+	void printEncoded( string filename );
 
 	string getFileContents (string filename);
 	int* countFreq(string filename);
