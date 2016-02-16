@@ -1,8 +1,8 @@
 # huffman-encoding
 
-A programming assignment by Ishjot Walia and Weikun (James) Zhang at UCSB.
+### Huffman encoding with heaps.
 
-Huffman encoding with heaps.
+A programming assignment by Ishjot Walia and Weikun (James) Zhang at UCSB.
 
 This program will compress a text file using Huffman Encoding, and decode the compressed data back into the original message.
 
@@ -12,7 +12,8 @@ This program will compress a text file using Huffman Encoding, and decode the co
 Usage:
 
 <code>
-make \n
+make
+
 ./prog2
 </code>
 
