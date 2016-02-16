@@ -3,7 +3,8 @@
 #include <streambuf>
 #include <cstdlib>
 #include <iostream>
-#include <boost/lexical_cast.hpp>
+//#include <boost/lexical_cast.hpp>
+#include <sstream>
 
 using namespace std;
 
@@ -54,7 +55,8 @@ void Huffman::encode(Node * root)
   int encoding [256] = { };
   int size = 0;
   stack<int> newStack;
-  string code;
+  //string code;
+  ostringstream oss;
   if(root->getLeftChild() == NULL && root->getRightChild() == NULL)
   {
     newStack = myStack;
@@ -70,9 +72,10 @@ void Huffman::encode(Node * root)
     for(int i = size - 1; i >= 0; --i)
     {
     
-      code += boost::lexical_cast<string>(encoding[i]);
+      // code += boost::lexical_cast<string>(encoding[i]);
+      oss << encoding[i];
     }
-    myMap.insert( pair<char, string>(root->getValue(), code) );
+    myMap.insert( pair<char, string>(root->getValue(), oss.str()) );
     myStack.pop();
     return;
   }
@@ -84,10 +87,9 @@ void Huffman::encode(Node * root)
     myStack.push(0);
     encode(root->getRightChild());
   }
-
-  myStack.pop();
-  return;
-
+  if (!myStack.empty()){
+    myStack.pop();
+  }
 }
 
 void Huffman::decode(string filename){

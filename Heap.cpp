@@ -2,7 +2,6 @@
 #include "Node.h"
 
 #include <iostream>
-#include <sstream>
 
 Heap::Heap()
 {
@@ -61,10 +60,7 @@ void Heap::insert(Node * node)
   heap[occupancy] = node;
   percolateUp( occupancy );
 
-} //Insert should actually be Percolating UP, because that's how
-  //to get the inserted Node to the right postition. I haven't
-  //implemented the Percolate UP method yet, however, but this
-  //*lazy* approach should still work
+} 
 
 void Heap::swap( int index1, int index2 )
 {
