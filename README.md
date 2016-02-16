@@ -13,7 +13,6 @@ Usage:
 
 <code>
 make
-
 ./prog2
 </code>
 
