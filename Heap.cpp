@@ -39,13 +39,15 @@ void Heap::buildHeap(int * characterFreq)
   {
     if(characterFreq[i] != 0)
     {
+      occupancy++;
       entry = new Node(characterFreq[i], letters[i]);
-      insert(entry);
+      heap[occupancy] = entry;
     }
   }
 
-  for(int j = occupancy/2; j > 0; --j)
+  for(int j = occupancy/2-1; j > 0; --j){
     percolateDown( j );
+  }
 
 }
 
@@ -57,8 +59,8 @@ void Heap::insert(Node * node)
   }
   occupancy++;
   heap[occupancy] = node;
-  //for(int j = occupancy/2; j > 0; --j)
-  //  percolateDown( j );
+  percolateUp( occupancy );
+
 } //Insert should actually be Percolating UP, because that's how
   //to get the inserted Node to the right postition. I haven't
   //implemented the Percolate UP method yet, however, but this
@@ -80,10 +82,16 @@ void Heap::percolateDown(int index)
   {
     if(index > (occupancy/2))
       break;
-    if (heap[index] == NULL || heap[index*2] == NULL || heap[index*2+1] == NULL)
+    if (heap[index] == NULL || heap[index*2] == NULL)
       break;
     int weight =  heap[index]->getWeight();
     int weightLeft = heap[index*2]->getWeight();
+    if (heap[index*2+1] == NULL){
+      if (weight>weightLeft){
+	swap(index, index*2);
+      }
+      break;
+    }
     int weightRight = heap[index*2+1]->getWeight();
     if(weight <= weightLeft && weight <= weightRight)
       break;
@@ -114,6 +122,21 @@ void Heap::percolateDown(int index)
   return;
 }
 
+void Heap::percolateUp(int index){
+  while(true){
+    if (index == 1){
+      break;
+    }
+    else if (heap[index]->getWeight() < heap[index/2]->getWeight()){
+	swap(index, index/2);
+	index = index/2;
+    }
+    else {
+      break;
+    }
+  }
+}
+
 Node * Heap::deleteMin()
 {
   Node * min = heap[1];
@@ -126,11 +149,9 @@ Node * Heap::deleteMin()
 }
 
 void Heap::print(){
-  ostringstream output;
   for (int i = 1; i<=occupancy; i++)
     {
-      output << heap[i]->ToString();
+      heap[i]->print();
     }
-  output << "\n";
-  cout << output.str();
+  cout << "\n";
 }

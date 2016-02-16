@@ -27,6 +27,7 @@ public:
   void swap(int index1, int index2);
 
   void percolateDown(int index);
+  void percolateUp(int index);
   Node* deleteMin();
 
   int getUniqueChars() { return occupancy; }

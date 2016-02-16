@@ -2,6 +2,8 @@
 #include <fstream>
 #include <streambuf>
 #include <cstdlib>
+#include <iostream>
+#include <boost/lexical_cast.hpp>
 
 using namespace std;
 
@@ -34,7 +36,7 @@ Node * Huffman::buildEncodingTree()
   Node * two;
   Node * three;
 
-  while(heap->getUniqueChars() > 2)
+  while(heap->getUniqueChars() > 1)
   {
     one = heap->deleteMin();
     two = heap->deleteMin();
@@ -46,6 +48,85 @@ Node * Huffman::buildEncodingTree()
   //Node** myHeap = heap->getHeap();
   return heap->getHeap()[1];
 
+}
+
+void Huffman::encode(Node * root)
+{
+
+  int encoding [256] = { };
+  int size = 0;
+  stack<int> newStack;
+  string code;
+  if(root->getLeftChild() == NULL && root->getRightChild() == NULL)
+  {
+    newStack = myStack;
+    //Read encoding from newStack in backwards order
+    while( !newStack.empty() )
+    {
+      encoding[size] = newStack.top();
+      size++;
+      newStack.pop();
+    }
+
+    cout << root->getValue() << ":";
+    for(int i = size - 1; i >= 0; --i)
+    {
+      cout << encoding[i];
+      code += boost::lexical_cast<string>(encoding[i]);
+    }
+    cout << endl;
+    map.insert(root->getValue(), code);
+    myStack.pop();
+    return;
+  }
+
+  else
+  {
+    myStack.push(1);
+    encode(root->getLeftChild());
+    myStack.push(0);
+    encode(root->getRightChild());
+  }
+
+  myStack.pop();
+  return;
+
+}
+
+void Huffman::decode(string filename){
+  string getContent = getFileContents(filename);
+  unsigned int count = 0;
+  Node* ptr = encodingTree;
+  while (true){
+    if (count == getContent.length()){
+      break;
+    }
+    if (getContent[count] == '1'){
+      ptr = ptr->getLeftChild();
+      if (ptr->getValue() != '$'){
+	cout << ptr->getValue();
+	ptr = encodingTree;
+      }
+    }
+    else{
+      ptr = ptr->getRightChild();
+      if (ptr->getValue() != '$'){
+	cout << ptr->getValue();
+	ptr = encodingTree;
+      }
+    }
+    count++;
+  }
+  cout << "\n";
+}
+
+void Huffman::printEncoded( string filename )
+{
+  string file = getFileContents( filename );
+  while(true)
+  {
+    
+  }
 }
 
 string Huffman::getFileContents(string filename)
