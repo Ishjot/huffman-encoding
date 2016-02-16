@@ -11,9 +11,8 @@ This program will compress a text file using Huffman Encoding, and decode the co
 
 Usage:
 
-<code>
-make
-./prog2
-</code>
+1. make
+2. ./prog2
+
 
 This will print the compressed verison of the text in plain.input and the uncompressed version of the text in encoded.input
