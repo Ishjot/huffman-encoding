@@ -10,9 +10,9 @@ This program will compress a text file using Huffman Encoding, and decode the co
 
 
 Usage:
-<code>
-make
 
+<code>
+make \n
 ./prog2
 </code>
 
