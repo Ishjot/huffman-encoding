@@ -69,12 +69,25 @@ int* Huffman::countFreq(string filename)
   for (int i = 0; i < 27; i++){
     arrayOfCounts[i] = 0;
   }
-  for (unsigned int i = 0; i< getContent.length(); i++){
-    int index = (int) getContent[i] - (int) ('a');
-    if (getContent[i] == ' '){
-      index = 26;
-    }
-    arrayOfCounts[index]++;
+  for (size_t i = 0; i< getContent.length(); i++){
+    //int index = (int) getContent[i] - (int) ('a');
+    //int index = static_cast<int>(getContent[i])-97;
+    //cout << index << endl;
+    int index;
+    char ch = getContent[i];
+    char letters [27] = {
+      'a', 'b', 'c', 'd', 'e', 'f', 'g',
+      'h', 'i', 'j', 'k', 'l', 'm', 'n',
+      'o', 'p', 'q', 'r', 's', 't', 'u',
+      'v', 'w', 'x', 'y', 'z', ' '
+    };
+    for(int j = 0; j < 27; j++)
+      {
+	if (ch == letters[j]){
+	  index = j;
+	  arrayOfCounts[index]++;
+	}
+      }
   }
   return arrayOfCounts;
 

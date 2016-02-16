@@ -57,8 +57,8 @@ void Heap::insert(Node * node)
   }
   occupancy++;
   heap[occupancy] = node;
-  for(int j = occupancy/2; j > 0; --j)
-    percolateDown( j );
+  //for(int j = occupancy/2; j > 0; --j)
+  //  percolateDown( j );
 } //Insert should actually be Percolating UP, because that's how
   //to get the inserted Node to the right postition. I haven't
   //implemented the Percolate UP method yet, however, but this
