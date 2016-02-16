@@ -12,6 +12,7 @@ This program will compress a text file using Huffman Encoding, and decode the co
 Usage:
 <code>
 make
+
 ./prog2
 </code>
 
